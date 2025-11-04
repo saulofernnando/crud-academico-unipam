@@ -1,0 +1,7 @@
+body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f6f8fb; color:#103451; }
+.topbar { background:#ff8c00; color:#fff; padding:10px 20px; }
+.topbar nav a { color:#fff; margin-right:10px; text-decoration:none; }
+.container { padding:20px; }
+table { width:100%; border-collapse:collapse; background:#fff; }
+th, td { padding:8px 10px; border:1px solid #e1e7ee; text-align:left; }
+.footer { padding:10px 20px; background:#eee; text-align:center; margin-top:20px; }

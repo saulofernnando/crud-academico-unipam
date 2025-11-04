@@ -1,0 +1,104 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h2>Bem-vindo ao Portal Acadêmico!</h2>
+<p>Olá, seja bem-vindo ao sistema acadêmico do UNIPAM. Aqui você pode gerenciar alunos, conferir cursos disponíveis e acompanhar as novidades.</p>
+
+<div class="dashboard">
+  <!-- Card Alunos -->
+  <div class="card">
+    <h3>Alunos Cadastrados</h3>
+    <p>{{ total_alunos }}</p>
+    <a href="{% url 'core:aluno_list' %}" class="btn btn-view">Ver Alunos</a>
+  </div>
+
+  <!-- Card Cursos -->
+  <div class="card">
+    <h3>Cursos Disponíveis</h3>
+    <p>{{ total_cursos }}</p>
+    <a href="{% url 'core:cursos' %}" class="btn btn-view">Ver Cursos</a>
+  </div>
+
+  <!-- Card Novidades -->
+  <div class="card">
+    <h3>Novidades Acadêmicas</h3>
+    <a href="{% url 'core:novidades' %}" class="btn btn-view">Ver Detalhes</a>
+  </div>
+</div>
+
+<!-- Rodapé Interativo (dentro do main) -->
+<footer class="footer">
+  <p>Desenvolvido por <strong>Saulo Fernando</strong> — Projeto Django Forum Avaliativo 6º Período 2025</p>
+</footer>
+
+<style>
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.card {
+  background: linear-gradient(135deg, #e0f7fa, #ffffff);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+  color: #004680;
+}
+
+.card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.card .btn {
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  display: inline-block;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  color: white;
+  background-color: #0d6efd;
+  transition: 0.2s;
+}
+
+.card .btn:hover {
+  background-color: #0a58ca;
+}
+
+/* Boas-vindas */
+h2 {
+  color: #004680;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Rodapé */
+footer.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f2f2f2;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+</style>
+{% endblock %}

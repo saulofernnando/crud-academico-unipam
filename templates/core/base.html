@@ -1,0 +1,192 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal Acadêmico</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main.container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow-x: auto;
+      flex: 1;
+    }
+
+    /* ===== TOPO ===== */
+    header.topbar {
+      background-color: #004680;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .topbar-left h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .topbar-right img {
+      height: 60px;
+      border-radius: 8px;
+    }
+
+    header.topbar nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 0.8rem;
+      font-weight: bold;
+    }
+
+    header.topbar nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== DASHBOARD ===== */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+      color: #004680;
+    }
+
+    .card p {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      display: inline-block;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      color: white;
+      background-color: #0d6efd;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #0a58ca;
+    }
+
+    /* ===== BOTÃO VOLTAR ===== */
+    .btn-voltar {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.6rem 1.2rem;
+      background-color: #004680;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-voltar:hover {
+      background-color: #0062cc;
+    }
+
+    .voltar-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    /* ===== RODAPÉ ===== */
+    footer.footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #f2f2f2;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== TOPO ===== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1>Portal Acadêmico</h1>
+    </div>
+    <div class="topbar-right">
+     <a href="{% url 'core:home' %}"><img src="{% static 'images/logo_unipam.jpg' %}" alt="Logo Unipam"></a>
+    </div>
+  </header>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="container">
+    {% block content %}
+    <section class="dashboard">
+      <div class="card">
+        <h3>Alunos Cadastrados</h3>
+        <p>{{ total_alunos }}</p>
+        <a href="{% url 'core:aluno_list' %}" class="btn">Ver Alunos</a>
+      </div>
+
+      <div class="card">
+        <h3>Cursos Disponíveis</h3>
+        <p>{{ total_cursos }}</p>
+        <a href="{% url 'core:curso_list' %}" class="btn">Ver Cursos</a>
+      </div>
+
+      <div class="card">
+        <h3>Novidades</h3>
+        <p>Veja as últimas atualizações!</p>
+        <a href="{% url 'core:novidades' %}" class="btn">Ver Mais</a>
+      </div>
+    </section>
+
+    <div class="voltar-container">
+      <a href="{% url 'core:home' %}" class="btn-voltar">🏠 Voltar ao Início</a>
+    </div>
+    {% endblock %}
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    © 2025 UNIPAM — Todos os direitos reservados.
+  </footer>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+  /* ===== Formulário Aluno ===== */
+  .form-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .form-container h2 {
+    text-align: center;
+    color: #004680;
+    margin-bottom: 1.5rem;
+  }
+
+  form label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  form input, form select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 0.3rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+
+  /* ===== Botões ===== */
+  .form-actions {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin: 0 5px 5px 0;
+  }
+
+  .btn-save {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-save:hover {
+    background-color: #218838;
+  }
+
+  .btn-back {
+    background-color: #007bff;
+    color: white;
+  }
+  .btn-back:hover {
+    background-color: #0056b3;
+  }
+
+  @media (max-width: 768px) {
+    .btn {
+      font-size: 0.85rem;
+      padding: 5px 10px;
+    }
+  }
+</style>
+
+<div class="form-container">
+  <h2>{% if aluno %}Editar Aluno{% else %}Novo Aluno{% endif %}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+      {{ field }}
+      {{ field.errors }}
+    {% endfor %}
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-save">💾 Salvar Alterações</button>
+      <a class="btn btn-back" href="{% url 'core:aluno_list' %}">⬅ Voltar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

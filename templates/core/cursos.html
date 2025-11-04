@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h2 style="text-align:center; color:#2c3e50; margin-bottom:1.5rem;">Cursos Disponíveis</h2>
+
+<div class="cursos-grid">
+  {% for curso in cursos %}
+    <div class="curso-card">
+      <h3>{{ curso }}</h3>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Botão Voltar ao Início -->
+<div style="text-align:center; margin-top:2rem;">
+  <a href="{% url 'core:home' %}" class="btn btn-voltar">🏠 Voltar ao Início</a>
+</div>
+
+<style>
+/* ===== Grid de Cursos ===== */
+.cursos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cursos por linha */
+  gap: 1.5rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+/* ===== Cartões de Curso ===== */
+.curso-card {
+  background-color: #5dade2; /* azul suave */
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.curso-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* ===== Efeito Hover ===== */
+.curso-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  background-color: #3498db;
+}
+
+/* ===== Botão Voltar ===== */
+.btn-voltar {
+  padding: 6px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold; /* negrito garantido */
+  transition: background-color 0.3s ease;
+  font-size: 0.95rem;
+  display: inline-block;
+  background-color: #004680;
+  color: #fff;
+}
+
+.btn-voltar:hover {
+  background-color: #0062cc;
+}
+</style>
+{% endblock %}
