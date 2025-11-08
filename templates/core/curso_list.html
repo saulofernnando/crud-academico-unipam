@@ -1,32 +1,153 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<h2>🎓 Gerenciamento de Cursos</h2>
+<style>
+  /* ===== Layout Geral ===== */
+  body {
+    background-color: #f2f5f9;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
 
-<a href="{% url 'core:curso_create' %}" class="btn">➕ Novo Curso</a>
+  .top-bar {
+    background: linear-gradient(90deg, #004680, #007bff);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
 
-<table class="table" style="width:100%; margin-top:1rem; border-collapse: collapse;">
-  <thead style="background-color:#004680; color:white;">
-    <tr>
-      <th style="padding:8px; text-align:left;">Nome</th>
-      <th style="padding:8px; text-align:left;">Descrição</th>
-      <th style="padding:8px; text-align:left;">Duração</th>
-      <th style="padding:8px; text-align:center;">Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for curso in cursos %}
-      <tr style="border-bottom:1px solid #ddd;">
-        <td style="padding:8px;">{{ curso.nome }}</td>
-        <td style="padding:8px;">{{ curso.descricao|default:"—" }}</td>
-        <td style="padding:8px;">{{ curso.duracao|default:"—" }}</td>
-        <td style="padding:8px; text-align:center;">
-          <a href="{% url 'core:curso_edit' curso.pk %}" class="btn">✏️ Editar</a>
-          <a href="{% url 'core:curso_delete' curso.pk %}" class="btn" style="background-color:#dc3545;">🗑️ Excluir</a>
-        </td>
+  .top-bar h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .btn-novo {
+    background-color: #ffffff;
+    color: #004680;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  }
+
+  .btn-novo:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
+  }
+
+  .table-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead {
+    background-color: #004680;
+    color: white;
+  }
+
+  th, td {
+    padding: 12px 14px;
+    text-align: left;
+  }
+
+  th {
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #eef4fb;
+    transition: background 0.3s;
+  }
+
+  .acoes {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-acao {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-acao:hover {
+    transform: scale(1.05);
+  }
+
+  .btn-editar {
+    background-color: #0d6efd;
+    color: white;
+  }
+
+  .btn-excluir {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  .vazio {
+    text-align: center;
+    padding: 1rem;
+    color: #777;
+    font-style: italic;
+  }
+</style>
+
+<div class="top-bar">
+  <h2>🎓 Gerenciamento de Cursos</h2>
+  <a href="{% url 'core:curso_create' %}" class="btn-novo">➕ Novo Curso</a>
+</div>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Habilitação</th>
+        <th>Modalidade</th>
+        <th>Duração</th>
+        <th>Sobre o Curso</th>
+        <th style="text-align:center;">Ações</th>
       </tr>
-    {% empty %}
-      <tr><td colspan="4" style="text-align:center; padding:1rem;">Nenhum curso cadastrado.</td></tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {% for curso in cursos %}
+        <tr>
+          <td>{{ curso.nome }}</td>
+          <td>{{ curso.habilitação }} </td>
+          <td>{{ curso.modalidade }}</td>
+          <td>{{ curso.duracao|default:"—" }}</td>
+          <td>{{ curso.descricao|default:"—" }}</td>
+          <td class="acoes">
+            <a href="{% url 'core:curso_edit' curso.pk %}" class="btn-acao btn-editar">✏️ Editar</a>
+            <a href="{% url 'core:curso_delete' curso.pk %}" class="btn-acao btn-excluir">🗑️ Excluir</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="vazio">Nenhum curso cadastrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

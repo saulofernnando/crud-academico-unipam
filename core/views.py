@@ -95,3 +95,4 @@ class CursoUpdateView(generic.UpdateView):
 class CursoDeleteView(generic.DeleteView):
     model = Curso
     template_name = 'core/curso_confirm_delete.html'
+    success_url = reverse_lazy('core:curso_list')  # Redireciona para a página de gerenciamento de cursos

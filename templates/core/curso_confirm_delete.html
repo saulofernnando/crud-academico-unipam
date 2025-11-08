@@ -1,12 +1,86 @@
 {% extends 'core/base.html' %}
 {% block content %}
-<h2>⚠️ Excluir Curso</h2>
 
-<p>Tem certeza que deseja excluir o curso <strong>{{ object.nome }}</strong>?</p>
+<style>
+  .delete-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+  }
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit" class="btn" style="background-color:#dc3545;">🗑️ Confirmar Exclusão</button>
-  <a href="{% url 'core:curso_list' %}" class="btn-voltar">Cancelar</a>
-</form>
+  .delete-container h2 {
+    color: #d9534f;
+    margin-bottom: 1rem;
+  }
+
+  .delete-container p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  .btns {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .btn-confirm {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .btn-confirm:hover {
+    background-color: #c9302c;
+  }
+
+  .btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .btn-cancel:hover {
+    background-color: #5a6268;
+  }
+</style>
+
+<div class="delete-container">
+  <h2>🗑️ Confirmar Exclusão</h2>
+  <p>Você está prestes a excluir o curso <strong>{{ object.nome }}</strong>.</p>
+  <p><em>Essa ação é irreversível e removerá todos os dados associados.</em></p>
+
+  <form id="deleteForm" method="post">
+    {% csrf_token %}
+    <div class="btns">
+      <button type="button" class="btn-confirm" onclick="confirmDelete()">Excluir Curso</button>
+      <a href="{% url 'core:curso_list' %}" class="btn-cancel">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+<script>
+  function confirmDelete() {
+    const confirmacao = confirm("⚠️ Tem certeza que deseja excluir este curso permanentemente?");
+    if (confirmacao) {
+      document.getElementById('deleteForm').submit();
+    }
+  }
+</script>
+
 {% endblock %}
+

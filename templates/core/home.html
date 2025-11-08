@@ -7,21 +7,21 @@
 <div class="dashboard">
   <!-- Card Alunos -->
   <div class="card">
-    <h3>Alunos Cadastrados</h3>
+    <h3>🧑‍🎓 Alunos Cadastrados</h3>
     <p>{{ total_alunos }}</p>
     <a href="{% url 'core:aluno_list' %}" class="btn btn-view">Ver Alunos</a>
   </div>
 
   <!-- Card Cursos -->
   <div class="card">
-    <h3>Cursos Disponíveis</h3>
+    <h3><h3>🎓 Gerenciamento de Cursos</h3></h3>
     <p>{{ total_cursos }}</p>
-    <a href="{% url 'core:cursos' %}" class="btn btn-view">Ver Cursos</a>
+    <a href="{% url 'core:curso_list' %}" class="btn btn-view">Ver Cursos</a>
   </div>
 
   <!-- Card Novidades -->
   <div class="card">
-    <h3>Novidades Acadêmicas</h3>
+    <h3>📰 Novidades Acadêmicas</h3>
     <a href="{% url 'core:novidades' %}" class="btn btn-view">Ver Detalhes</a>
   </div>
 </div>

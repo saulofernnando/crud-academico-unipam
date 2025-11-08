@@ -1,12 +1,122 @@
 {% extends 'core/base.html' %}
+{% load static %}
 {% block content %}
-<h2>📘 {{ view.object|default_if_none:"Novo Curso" }}</h2>
 
-<form method="post" class="form-container">
-  {% csrf_token %}
-  {{ form.as_p }}
+<style>
+  .form-wrapper {
+    max-width: 650px;
+    margin: 3rem auto;
+    background: #ffffff;
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
 
-  <button type="submit" class="btn">💾 Salvar</button>
-  <a href="{% url 'core:curso_list' %}" class="btn-voltar">⬅️ Voltar</a>
-</form>
+  .form-wrapper h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #004080;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: 0.3s;
+  }
+
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+    outline: none;
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .btn-submit {
+    display: block;
+    width: 100%;
+    background: linear-gradient(90deg, #007bff, #004aad);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.9rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .btn-submit:hover {
+    background: linear-gradient(90deg, #0056b3, #002f6c);
+  }
+
+  .btn-cancel {
+    display: block;
+    width: 100%;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 0.9rem;
+    font-size: 1.1rem;
+    margin-top: 0.7rem;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .btn-cancel:hover {
+    background-color: #5a6268;
+  }
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    display: block;
+    color: #333;
+  }
+</style>
+
+<div class="form-wrapper">
+  <h2>📘 {{ form.instance.pk|yesno:"Editar Curso,Novo Curso" }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    
+    <div>
+      <label for="id_nome">Nome do Curso:</label>
+      {{ form.nome }}
+    </div>
+
+    <div>
+      <label for="id_habilitacao">Habilitação:</label>
+      {{ form.nome }}
+    </div>
+    <div>
+      <label for="id_modalidade">Modalidade:</label>
+      {{ form.nome }}
+    </div>
+
+    <div>
+      <label for="id_descricao">Sobre o Curso:</label>
+      {{ form.descricao }}
+    </div>
+
+    <div>
+      <label for="id_duracao">Duração:</label>
+      {{ form.duracao }}
+    </div>
+
+    <button type="submit" class="btn-submit">💾 Salvar</button>
+    <a href="{% url 'core:curso_list' %}" class="btn-cancel">⬅ Voltar</a>
+  </form>
+</div>
+
 {% endblock %}
