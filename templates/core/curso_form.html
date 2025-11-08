@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>📘 {{ view.object|default_if_none:"Novo Curso" }}</h2>
+
+<form method="post" class="form-container">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <button type="submit" class="btn">💾 Salvar</button>
+  <a href="{% url 'core:curso_list' %}" class="btn-voltar">⬅️ Voltar</a>
+</form>
+{% endblock %}

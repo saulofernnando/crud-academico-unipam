@@ -9,3 +9,13 @@ class Aluno(models.Model):
 
     def __str__(self):
         return f"{self.nome} - {self.curso}"
+
+
+class Curso(models.Model):
+    nome = models.CharField(max_length=150, unique=True)
+    descricao = models.TextField(blank=True, null=True)
+    duracao = models.CharField(max_length=50, blank=True, null=True)  # Ex: 4 anos
+
+    def __str__(self):
+        return self.nome
+

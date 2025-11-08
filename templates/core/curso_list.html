@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>🎓 Gerenciamento de Cursos</h2>
+
+<a href="{% url 'core:curso_create' %}" class="btn">➕ Novo Curso</a>
+
+<table class="table" style="width:100%; margin-top:1rem; border-collapse: collapse;">
+  <thead style="background-color:#004680; color:white;">
+    <tr>
+      <th style="padding:8px; text-align:left;">Nome</th>
+      <th style="padding:8px; text-align:left;">Descrição</th>
+      <th style="padding:8px; text-align:left;">Duração</th>
+      <th style="padding:8px; text-align:center;">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for curso in cursos %}
+      <tr style="border-bottom:1px solid #ddd;">
+        <td style="padding:8px;">{{ curso.nome }}</td>
+        <td style="padding:8px;">{{ curso.descricao|default:"—" }}</td>
+        <td style="padding:8px;">{{ curso.duracao|default:"—" }}</td>
+        <td style="padding:8px; text-align:center;">
+          <a href="{% url 'core:curso_edit' curso.pk %}" class="btn">✏️ Editar</a>
+          <a href="{% url 'core:curso_delete' curso.pk %}" class="btn" style="background-color:#dc3545;">🗑️ Excluir</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4" style="text-align:center; padding:1rem;">Nenhum curso cadastrado.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

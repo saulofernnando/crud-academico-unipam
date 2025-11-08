@@ -29,36 +29,48 @@
     }
 
     /* ===== TOPO ===== */
-    header.topbar {
-      background-color: #004680;
-      color: white;
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
+header.topbar {
+  background-color: #004680;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
-    .topbar-left h1 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
+/* Logo + título lado a lado */
+.logo-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
 
-    .topbar-right img {
-      height: 60px;
-      border-radius: 8px;
-    }
+.logo-container img {
+  height: 60px;
+  margin-right: 1rem;
+  border-radius: 8px;
+}
 
-    header.topbar nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 0.8rem;
-      font-weight: bold;
-    }
+.logo-container h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
 
-    header.topbar nav a:hover {
-      text-decoration: underline;
-    }
+/* Navegação (opcional) */
+.topbar-nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.topbar-nav a:hover {
+  text-decoration: underline;
+}
+
 
     /* ===== DASHBOARD ===== */
     .dashboard {
@@ -141,17 +153,18 @@
     }
   </style>
 </head>
-
 <body>
   <!-- ===== TOPO ===== -->
-  <header class="topbar">
-    <div class="topbar-left">
+<header class="topbar">
+  <div class="topbar-left">
+    <a href="{% url 'core:home' %}" class="logo-container">
+      <img src="{% static 'images/logo_unipam.jpg' %}" alt="Logo Unipam">
       <h1>Portal Acadêmico</h1>
-    </div>
-    <div class="topbar-right">
-     <a href="{% url 'core:home' %}"><img src="{% static 'images/logo_unipam.jpg' %}" alt="Logo Unipam"></a>
-    </div>
-  </header>
+    </a>
+  </div>
+    <!-- adicione mais links se quiser -->
+  </nav>
+</header>
 
   <!-- ===== CONTEÚDO PRINCIPAL ===== -->
   <main class="container">
