@@ -72,10 +72,11 @@
     background-color: #f9f9f9;
   }
 
-  tr:hover {
+  /* 🔹 Removido o efeito hover */
+  /* tr:hover {
     background-color: #eef4fb;
     transition: background 0.3s;
-  }
+  } */
 
   .acoes {
     display: flex;
@@ -111,6 +112,44 @@
     padding: 1rem;
     color: #777;
     font-style: italic;
+    .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.page-link, .page-current, .page-disabled {
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.page-link {
+  background-color: #004680;
+  color: white;
+  transition: background 0.3s;
+}
+
+.page-link:hover {
+  background-color: #007bff;
+}
+
+.page-current {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 700;
+}
+
+.page-disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
   }
 </style>
 
@@ -135,7 +174,7 @@
       {% for curso in cursos %}
         <tr>
           <td>{{ curso.nome }}</td>
-          <td>{{ curso.habilitação }} </td>
+          <td>{{ curso.habilitacao }}</td>
           <td>{{ curso.modalidade }}</td>
           <td>{{ curso.duracao|default:"—" }}</td>
           <td>{{ curso.descricao|default:"—" }}</td>
@@ -145,9 +184,32 @@
           </td>
         </tr>
       {% empty %}
-        <tr><td colspan="5" class="vazio">Nenhum curso cadastrado.</td></tr>
+        <tr><td colspan="6" class="vazio">Nenhum curso cadastrado.</td></tr>
       {% endfor %}
     </tbody>
   </table>
+  {% if is_paginated %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="page-link">« Anterior</a>
+    {% else %}
+      <span class="page-disabled">« Anterior</span>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <span class="page-current">{{ num }}</span>
+      {% else %}
+        <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="page-link">Próxima »</a>
+    {% else %}
+      <span class="page-disabled">Próxima »</span>
+    {% endif %}
+  </div>
+{% endif %}
 </div>
 {% endblock %}
