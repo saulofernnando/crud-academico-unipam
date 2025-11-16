@@ -9,6 +9,11 @@
     <h3>{{ item.titulo }}</h3>
     <p class="descricao">{{ item.descricao }}</p>
     <p class="data">📅 {{ item.data }}</p>
+
+    <!-- Link que parece clicável, mas não navega -->
+    <a href="{{ item.link }}" class="novidade-link" onclick="event.preventDefault();" role="button" aria-disabled="true">
+      Leia mais
+    </a>
   </div>
   {% empty %}
   <p>Não há novidades acadêmicas no momento.</p>
@@ -32,13 +37,13 @@ h2 {
 
 @media (max-width: 1024px) {
   .novidades-container {
-    grid-template-columns: repeat(2, 1fr); /* Dois por linha em telas médias */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .novidades-container {
-    grid-template-columns: 1fr; /* Um por linha em telas pequenas */
+    grid-template-columns: 1fr;
   }
 }
 
@@ -70,6 +75,31 @@ h2 {
   font-size: 0.85rem;
   color: #555;
   text-align: right;
+}
+
+/* ======= Link "Leia mais" ======= */
+.novidade-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #0074d9;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
+}
+
+/* Aparência de link ao passar o mouse */
+.novidade-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  transform: translateY(-2px);
+}
+
+/* Deixa claro para leitores de tela que não é clicável */
+.novidade-link[aria-disabled="true"] {
+  opacity: 1; /* mantemos a opacidade normal pra parecer link */
 }
 
 /* ======= Botão Voltar ======= */

@@ -14,25 +14,47 @@ class NovidadesAcademicasView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['novidades'] = [
             {
                 "titulo": "Semana de Tecnologia 2025",
                 "descricao": "Evento anual com palestras sobre IA, segurança cibernética e desenvolvimento web.",
-                "data": "10 a 14 de novembro de 2025"
+                "data": "10 a 14 de novembro de 2025",
+                "link": "#"
             },
             {
                 "titulo": "Novo Laboratório de Inovação Aberto",
-                "descricao": "O UNIPAM inaugurou o novo espaço de inovação com impressoras 3D e laboratórios de prototipagem.",
-                "data": "20 de novembro de 2025"
+                "descricao": "Laboratório com impressoras 3D, robótica e prototipagem já está em funcionamento.",
+                "data": "20 de novembro de 2025",
+                "link": "#"
             },
             {
                 "titulo": "Inscrições para o Vestibular 2026",
-                "descricao": "As inscrições estão abertas para os cursos de graduação. Garanta sua vaga!",
-                "data": "30 de novembro de 2025"
+                "descricao": "As inscrições para novos cursos de graduação já estão abertas.",
+                "data": "30 de novembro de 2025",
+                "link": "#"
+            },
+            {
+                "titulo": "Biblioteca Ganha 200 Novos Livros",
+                "descricao": "A biblioteca do UNIPAM recebeu uma grande atualização no acervo acadêmico.",
+                "data": "05 de dezembro de 2025",
+                "link": "#"
+            },
+            {
+                "titulo": "Novo Curso de Ciência de Dados",
+                "descricao": "O curso começa em 2026 e inclui disciplinas de IA, big data e machine learning.",
+                "data": "12 de dezembro de 2025",
+                "link": "#"
+            },
+            {
+                "titulo": "Expansão do Estacionamento",
+                "descricao": "As obras do novo estacionamento do campus foram iniciadas.",
+                "data": "18 de dezembro de 2025",
+                "link": "#"
             },
         ]
-        return context
 
+        return context
 
 # ===== CRUD ALUNOS =====
 class AlunoListView(generic.ListView):
@@ -95,4 +117,15 @@ class CursoUpdateView(generic.UpdateView):
 class CursoDeleteView(generic.DeleteView):
     model = Curso
     template_name = 'core/curso_confirm_delete.html'
-    success_url = reverse_lazy('core:curso_list')  # Redireciona para a página de gerenciamento de cursos
+    success_url = reverse_lazy('core:curso_list')
+
+
+class CursoCreateView(generic.CreateView):
+    model = Curso
+    form_class = CursoForm
+    template_name = 'core/curso_form.html'
+    success_url = reverse_lazy('core:curso_list')
+
+    def form_valid(self, form):
+        print("📘 Dados enviados:", form.cleaned_data)
+        return super().form_valid(form)

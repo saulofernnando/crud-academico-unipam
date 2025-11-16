@@ -9,7 +9,7 @@
     background: #ffffff;
     padding: 2rem 2.5rem;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
   }
 
   .form-wrapper h2 {
@@ -40,40 +40,36 @@
     min-height: 100px;
   }
 
-  .btn-submit {
-    display: block;
-    width: 100%;
+  .form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 1.5rem;
+  }
+
+  .btn {
     background: linear-gradient(90deg, #007bff, #004aad);
     color: #fff;
     border: none;
     border-radius: 10px;
-    padding: 0.9rem;
-    font-size: 1.1rem;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     transition: 0.3s;
   }
 
-  .btn-submit:hover {
-    background: linear-gradient(90deg, #0056b3, #002f6c);
+  .btn:hover {
+    background: linear-gradient(90deg, #0056b3, #003d80);
+    transform: translateY(-1px);
   }
 
-  .btn-cancel {
-    display: block;
-    width: 100%;
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 0.9rem;
-    font-size: 1.1rem;
-    margin-top: 0.7rem;
-    text-align: center;
-    text-decoration: none;
-    transition: 0.3s;
+  .btn-voltar {
+    background: #6c757d;
   }
 
-  .btn-cancel:hover {
-    background-color: #5a6268;
+  .btn-voltar:hover {
+    background: #5a6268;
   }
 
   label {
@@ -82,6 +78,24 @@
     display: block;
     color: #333;
   }
+
+  /* ===== Estilo para checkboxes ===== */
+  .checkbox-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .checkbox-item input {
+    transform: scale(1.2);
+  }
 </style>
 
 <div class="form-wrapper">
@@ -89,7 +103,7 @@
 
   <form method="post">
     {% csrf_token %}
-    
+
     <div>
       <label for="id_nome">Nome do Curso:</label>
       {{ form.nome }}
@@ -97,11 +111,17 @@
 
     <div>
       <label for="id_habilitacao">Habilitação:</label>
-      {{ form.nome }}
+      {{ form.habilitacao }}
     </div>
+
     <div>
-      <label for="id_modalidade">Modalidade:</label>
-      {{ form.nome }}
+  <label for="id_modalidade">Modalidade:</label>
+  {{ form.modalidade }}
+</div>
+
+    <div>
+      <label for="id_duracao">Duração:</label>
+      {{ form.duracao }}
     </div>
 
     <div>
@@ -109,13 +129,10 @@
       {{ form.descricao }}
     </div>
 
-    <div>
-      <label for="id_duracao">Duração:</label>
-      {{ form.duracao }}
+    <div class="form-buttons">
+      <button type="submit" class="btn">💾 Salvar</button>
+      <a href="{% url 'core:curso_list' %}" class="btn btn-voltar">↩️ Voltar</a>
     </div>
-
-    <button type="submit" class="btn-submit">💾 Salvar</button>
-    <a href="{% url 'core:curso_list' %}" class="btn-cancel">⬅ Voltar</a>
   </form>
 </div>
 

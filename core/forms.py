@@ -1,7 +1,6 @@
 from django import forms
 from .models import Aluno, Curso
 
-
 class AlunoForm(forms.ModelForm):
     curso_nome = forms.CharField(
         label="Curso",
@@ -20,8 +19,18 @@ class AlunoForm(forms.ModelForm):
         }
 
     def save(self, commit=True):
-        nome_curso = self.cleaned_data['curso_nome']
-        curso, criado = Curso.objects.get_or_create(nome=nome_curso)
+        nome_curso = self.cleaned_data['curso_nome'].strip()
+        curso = Curso.objects.filter(nome__iexact=nome_curso).first()
+
+        if not curso:
+            curso = Curso.objects.create(
+                nome=nome_curso,
+                descricao='',
+                duracao='',
+                modalidade='Presencial',
+                habilitacao=''
+            )
+
         aluno = super().save(commit=False)
         aluno.curso = curso
         if commit:
@@ -32,11 +41,16 @@ class AlunoForm(forms.ModelForm):
 class CursoForm(forms.ModelForm):
     class Meta:
         model = Curso
-        fields = ['nome', 'descricao', 'duracao', 'modalidade']
+        fields = ['nome', 'habilitacao', 'modalidade', 'duracao', 'descricao']
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome do curso'}),
-            'descricao': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição do curso', 'rows': 4}),
-            'duracao': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: 4 anos'}),
+            'habilitacao': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Bacharelado, Licenciatura...'}),
             'modalidade': forms.Select(attrs={'class': 'form-control'}),
+            'duracao': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: 4 anos'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição do curso', 'rows': 4}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Deixa a opção em branco no início
+        self.fields['modalidade'].choices = [('', 'Selecione uma modalidade')] + list(Curso.MODALIDADE_CHOICES)
