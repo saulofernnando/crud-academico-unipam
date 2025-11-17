@@ -9,7 +9,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'chave_insegura_para_dev')
 
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = [
+    'crud-academico-unipam.onrender.com',
+    'localhost',
+    '127.0.0.1'
+]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
