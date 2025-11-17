@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 import dj_database_url
 
@@ -22,7 +23,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Para servir arquivos estáticos
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serve arquivos estáticos em produção
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -68,3 +69,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Garante que collectstatic funcione no deploy
+if 'collectstatic' in sys.argv:
+    DEBUG = False
