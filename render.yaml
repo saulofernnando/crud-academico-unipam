@@ -1,6 +1,7 @@
 services:
   - type: web
-    name: crud-academico
+    name: crud-academico-unipam
     env: python
-    buildCommand: "pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py collectstatic --noinput"
-    startCommand: "gunicorn portal_academico.wsgi"
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn portal_academico.wsgi:application"
+c
